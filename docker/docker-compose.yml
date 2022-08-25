@@ -22,5 +22,5 @@ services:
         volumes:
             # configure GUI
             - /tmp/.X11-unix:/tmp/.X11-unix
-            - ../catkin_ws:/catkin_ws/
+            - ../catkin_ws:/root/ros/catkin_ws
         network_mode: host
