@@ -46,6 +46,23 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     python3-catkin-tools \
     && rm -rf /var/lib/apt/lists/*
 
+# Install pip3
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install libraries related to detectron2
+RUN pip install -U torch==1.10 torchvision==0.6 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+RUN pip install cython pyyaml==5.1
+RUN pip install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+RUN pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu113/torch1.10/index.html
+
+# Install usb_cam
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    ros-noetic-usb-cam \
+    ros-noetic-image-view \
+    && rm -rf /var/lib/apt/lists/*
+
 # build-catkin_ws
 RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
 RUN echo "cd /root/ros/catkin_ws; catkin build" >> /root/.bashrc
