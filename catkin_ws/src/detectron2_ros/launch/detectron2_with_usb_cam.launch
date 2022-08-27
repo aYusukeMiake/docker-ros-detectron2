@@ -1,0 +1,17 @@
+<launch>
+    <arg name="video_device" default="/dev/video0"/>
+    <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+        <param name="video_device" value="$(arg video_device)" />
+        <param name="image_width" value="640" />
+        <param name="image_height" value="480" />
+        <param name="pixel_format" value="yuyv" />
+        <param name="camera_frame_id" value="usb_cam" />
+        <param name="io_method" value="mmap"/>
+    </node>
+    <node pkg="rqt_image_view" type="rqt_image_view" name="image_view_input" args="/usb_cam/image_raw"/>
+    <node pkg="rqt_image_view" type="rqt_image_view" name="image_view_output" args="/detectron2_ros/output_img"/>
+    <node pkg="detectron2_ros" name="detectron2_ros" type="detectron2_ros.py" output="screen">
+        <!--task: object_detection, panoptic_segmentation, instance_segmentation-->
+        <param name="task" value="instance_segmentation" type="str"/>
+    </node>
+</launch>

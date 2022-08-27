@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install libraries related to detectron2
-RUN pip install -U torch==1.10 torchvision==0.6 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+RUN pip install -U torch==1.10 torchvision==0.11.1 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 RUN pip install cython pyyaml==5.1
 RUN pip install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
 RUN pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu113/torch1.10/index.html
